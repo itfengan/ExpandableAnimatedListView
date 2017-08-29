@@ -19,6 +19,7 @@
         android:id="@+id/chbGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/CustomCheckBoxTheme"
         android:focusable="false" />
     <ImageView
         android:id="@+id/iv_child"

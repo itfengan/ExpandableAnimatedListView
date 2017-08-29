@@ -8,7 +8,6 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
  * Created by zhoulinda on 16/3/15.
@@ -23,14 +22,19 @@ public class SecondActivity extends Activity {
     }
     public final String TAG = "MainActivity";
     ArrayList<Group> groups = new ArrayList<>();
-    ArrayList<SelectModel> mSelectModels = new ArrayList<>();
     private void setUpView() {
         final AnimatedExpandableListView mListView = (AnimatedExpandableListView) findViewById(R.id.expandableListView);
         for (int i = 0; i < 2; i++) {
-            mSelectModels.add(new SelectModel(-1,new HashSet<Integer>()));
             Group groupItem = new Group(""+i,"地区"+i);
+            if (i==1) {
+                groupItem.setChecked(true);
+            }
             for (int j = 0; j < 5; j++){
-                groupItem.addChildrenItem(new Child(""+i,""+j,groupItem.getTitle()+j));
+                Child child = new Child("" + i, "" + j, groupItem.getTitle() + j);
+                if (i==1) {
+                    child.setChecked(true);
+                }
+                groupItem.addChildrenItem(child);
             }
             groups.add(groupItem);
         }
@@ -55,7 +59,6 @@ public class SecondActivity extends Activity {
         mListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                mSelectModels.get(groupPosition).set.add(childPosition);
                 Toast.makeText(SecondActivity.this,groupPosition+"=="+childPosition,Toast.LENGTH_SHORT).show();
 //                Log.e("fengan", "onChildClick:== "+groups.toString() );
                 Group group = groups.get(groupPosition);
